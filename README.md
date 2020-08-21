@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Deployed website: https://covid-19-db-4fb04.web.app/
 
 ## Available Scripts
 
