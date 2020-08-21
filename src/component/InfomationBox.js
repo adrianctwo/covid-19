@@ -1,10 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
 import './InformationBox.css'
-const CardTitle = styled.h3``
-const CardCases = styled.p``
-const CardTotal = styled.p``
-
 
 function InfomationBox({ title, cases, isRed, active, total, ...props }) {
     return (

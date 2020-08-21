@@ -10,28 +10,99 @@ import { sortData, printStat } from './util.js'
 import LineGraph from './component/LineGraph.js'
 import 'leaflet/dist/leaflet.css';
 
-const Hero = styled.div``
-const Header = styled.div``
+const Hero = styled.div`
+  background: #EFF4FF;
+  height: 100%;
+`
+const Header = styled.div`
+  height: 56px;
+  background: #0D47A1;
+`
+const Title = styled.div`
+  h1 {
+    font-size: 70px;
+    text-align: center;
+    font-weight: 800;
+    line-height: 70px;
+  }
+
+  margin: 30px 0px;
+`
 const MainBody = styled.div`
   display: flex;
 
-  @media (max-width: 800px) {
+  @media (max-width: 1200px) {
     flex-direction: column;
   }
 `
-const Container = styled.div`
-`
+const Container = styled.div``
 const MenuContainer = styled.div`
-  max-width: 90vw;
+  max-width: 80vw;
   width: 80vw;
   display: grid;
   grid-template-columns: repeat(4, auto);
   align-items: center;
   justify-items: center;
+
+  @media (max-width: 1200px) {
+    max-width: 100vw;
+    width: 100vw;
+  }
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, auto);
+  }
+
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(1, auto);
+  }
 `
 
 const LeftContainer = styled.div``
-const RightContainer = styled.div``
+const RightContainer = styled.div`
+  margin-left: 20px;
+
+  @media (max-width: 900px) {
+    margin-left: 0px;
+  }
+
+`
+const RightBox = styled.div`
+  height: auto
+  max-width: 15vw;
+  width: 15vw;
+  background: #0D47A1;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.25), 0px 1px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 30px;
+
+  h2 {
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  @media (max-width: 1200px) {
+    max-width: 100vw;
+    width: 94%;
+  }
+  @media (max-width: 900px) {
+    max-width: 100vw;
+    width: 93%;
+  }
+  @media (max-width: 700px) {
+    max-width: 100vw;
+    width: 90%;
+  }
+`
+
+const LineGraphBox = styled.div`
+  margin-top: 10px;
+  background: white;
+  border-radius: 20px;
+  padding: 5px;
+`
 
 function App() {
 
@@ -83,17 +154,19 @@ function App() {
   return (
     <Hero>
       <Header>
-        <h1>Covid Tracker</h1>
       </Header>
+      <Title>
+        <h1>Covid Tracker</h1>
+      </Title>
       <MainBody>
         <LeftContainer>
           <MenuContainer>
             <Container>
               <FormControl className="dropdown">
-                <Select variant="outlined" onChange={onCountryChange} value={country}>
-                  <MenuItem value="worldwide">Worldwide</MenuItem>
+                <Select className="selections" variant="outlined" onChange={onCountryChange} value={country}>
+                  <MenuItem className="selected" value="worldwide">Worldwide</MenuItem>
                   {countries.map((country, index) => (
-                    <MenuItem key={index} value={country.value}>{country.name}</MenuItem>
+                    <MenuItem className="selected" key={index} value={country.value}>{country.name}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -102,20 +175,20 @@ function App() {
               isRed
               active={casesType === 'cases'}
               onClick={(e) => setCasesType('cases')} title="Coronavirus Cases" cases={printStat(countryInfo.todayCases)}
-              total={countryInfo.cases}
+              total={printStat(countryInfo.cases)}
             />
             <InformationBox
               active={casesType === 'recovered'}
               onClick={(e) => setCasesType('recovered')} title="Recovered"
               cases={printStat(countryInfo.todayRecovered)}
-              total={countryInfo.recovered}
+              total={printStat(countryInfo.recovered)}
             />
             <InformationBox
               isRed
               active={casesType === 'deaths'}
               onClick={(e) => setCasesType('deaths')} title="Deaths"
               cases={printStat(countryInfo.todayDeaths)}
-              total={countryInfo.deaths}
+              total={printStat(countryInfo.deaths)}
             />
           </MenuContainer>
           <Map
@@ -126,9 +199,14 @@ function App() {
           />
         </LeftContainer>
         <RightContainer>
+        <RightBox>
           <h2>Total Cases</h2>
           <Table countries={tableData}></Table>
-          <LineGraph casesType={casesType} />
+          <h2>Daily Change: {casesType}</h2>
+          <LineGraphBox>
+              <LineGraph casesType={casesType} />
+          </LineGraphBox>
+          </RightBox>
         </RightContainer>
       </MainBody>
     </Hero>

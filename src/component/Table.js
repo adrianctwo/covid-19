@@ -2,16 +2,27 @@ import React from 'react'
 import styled from 'styled-components'
 
 const TableBox = styled.div`
+    margin-top: 10px;
+    height: 500px;
     overflow: scroll;
-    height: 400px;
     overflow-x: hidden;
+    background: #002171;
+    border-radius: 20px;
     tr:nth-child(odd) {
-    background: lightgray;
-  }
+        background: #5472D3;
+    }
+    color: white;
+    ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `
 const TableRow = styled.tr`
     display: flex;
     justify-content: space-between;
+    padding: 5px;
+    font-size: 20px;
 `
 
 const TableData = styled.td`

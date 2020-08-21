@@ -6,6 +6,9 @@ import numeral from 'numeral'
 const options = {
     legend: {
         display: false,
+        labels: {
+            fontColor: 'black',
+        }
     },
     elements: {
         point: {
@@ -28,7 +31,7 @@ const options = {
                 type: 'time',
                 time: {
                     format: "MM/DD/YY",
-                    tooltipFormat: "ll",
+                    tooltipFormat: "l1",
                 }
             }
         ],
@@ -79,18 +82,16 @@ function LineGraph({casesType = "cases"}) {
         getData();
     }, [casesType])
 
-
     return (
         <div>
-        <h2>Daily Change: {casesType}</h2>
             {data?.length > 0 && (
                 <Line
                     options={options}
                     data={{
                     datasets: [
                         {
-                            backgroundColor: "rgba(204,16,52,0.5)",
-                            borderColor: "#CC1034",
+                            backgroundColor: "rgba(167, 255, 235, 0.5)",
+                            borderColor: "#A7FFEB",
                             data: data
                         },
                     ],
@@ -100,6 +101,7 @@ function LineGraph({casesType = "cases"}) {
         </div>
     )
 }
+
 
 export default LineGraph
 
